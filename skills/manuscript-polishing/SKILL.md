@@ -4,7 +4,7 @@ description: >
   Adapts a finished review draft to the locked journal: wording, consistency,
   overclaim hedging, citation audit, and a docx export. Use when the user
   says "polish the manuscript", "fit the word limit", "overclaim", "change
-  log", or "export docx". Do not use to add results, add references, choose
+  log", "export docx", or "export Word with live Zotero citations". Do not use to add results, add references, choose
   a journal, or respond to reviewers. For restructuring the argument,
   removing paper-by-paper listing, or editing a Word file with live Zotero
   fields, use review-writing first.
@@ -81,7 +81,7 @@ python3 <suite>/skills/manuscript-polishing/scripts/polish_checks.py \
 
 7. Fill `<project>/10-polish/consistency.md` from `references/consistency_checklist.md`. One row per term. Define an abbreviation at first use in the abstract and again at first use in the main text. Do not introduce an abbreviation you use fewer than three times.
 8. Apply the locked journal's word limit by cutting, and log each cut. Do not delete the only citation for a sentence you keep. Match heading levels and spelling (US or UK) to the author guidelines. Reference style: convert each key from the evidence row's bibliographic fields. If a volume, page, or DOI is blank in the row, write `[VERIFY]` and do not invent it. Numbered styles still keep the `<!-- E014 -->` marker in the markdown.
-9. Export only after `check_style_fit.py` has printed `OK style fit`. Pandoc (https://pandoc.org/MANUAL.html):
+9. Export only after `check_style_fit.py` has printed `OK style fit`. When the user requests dynamic Word citations and the project uses Zotero, also follow [desktop sync in Word mode](../zotero-library-sync/references/desktop_sync.md) within this step. Use an export input with structured citations collected from all selected, checked sections and the cited figure captions and table contents. Preserve that input before converting to static journal-style citations. Use a distinct output name for the live copy. For an existing live DOCX, preserve its fields through the `review-writing` workflow. For regular export, use Pandoc (https://pandoc.org/MANUAL.html):
 
 ```
 pandoc "<project>/10-polish/manuscript.md" \
@@ -135,6 +135,7 @@ No separate project-level gate. The user accepts the change log before the docx 
 - `<project>/10-polish/overclaim_decisions.tsv`
 - `<project>/10-polish/consistency.md`
 - `<project>/10-polish/manuscript_polished.docx`
+- On request, a separate live Zotero DOCX and its sync mapping, with Word Refresh verification status.
 
 ## Quality checklist
 
@@ -144,7 +145,7 @@ No separate project-level gate. The user accepts the change log before the docx 
 - Every outline evidence ID is still cited, or its drop is logged as `dropped E###`.
 - The manuscript cites no ID that is absent from the outline and the evidence table.
 - Word count is within the locked journal's limit, or the limit cell was `[VERIFY]` and you stopped.
-- The docx was produced by the pandoc command above, or by the documented python-docx fallback.
+- The docx was produced by Pandoc, the documented python-docx fallback, or the live Zotero workflow. For a live copy, the mapping covers every cited key and the Word Refresh result is recorded separately.
 
 ## Guardrails
 
